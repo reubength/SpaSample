@@ -1,22 +1,27 @@
-﻿(function () {
-    'use strict';
-    
-    var app = angular.module('app', [
-        // Angular modules 
-        'ngAnimate',        // animations
-        'ngRoute',          // routing
-        'ngSanitize',       // sanitizes html bindings (ex: sidebar.js)
+﻿var app = angular.module('app', ['ngRoute']);
 
-        // Custom modules 
-        'common',           // common functions, logger, spinner
-        'common.bootstrap', // bootstrap dialog wrapper functions
+app.controller('MainController', MainController);
+app.controller('GridController', GridController);
 
-        // 3rd Party Modules
-        'ui.bootstrap'      // ui-bootstrap (ex: carousel, pagination, dialog)
-    ]);
+
+var configFunction = function ($routeProvider, $httpProvider) {
+//    $routeProvider.when('/grid', {
+//        templateURL: 'app/Views/Grid.html',
+//        controller: GridController
+    //})
+    $routeProvider.when('/map', {
+        templateURL: 'app/Views/Map.html',
+        controller: GridController
+    })
+    .otherwise({
+        redirectTo: function () {
+            return '/grid';
+        }
+    })
+}
+
+configFunction.$inject = ['$routeProvider', '$httpProvider'];
     
-    // Handle routing errors and success events
-    app.run(['$route',  function ($route) {
-            // Include $route to kick start the router.
-        }]);        
-})();
+app.config(configFunction);
+
+

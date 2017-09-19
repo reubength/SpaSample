@@ -12,11 +12,15 @@ namespace SpaSample.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Employee
+    public partial class HydrantLocation
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int Age { get; set; }
-        public int Salary { get; set; }
+        public int hydrant_Id { get; set; }
+        public int hydrant_District { get; set; }
+        public double hydrant_Longitude { get; set; }
+        public double hydrant_Latitude { get; set; }
+        public Nullable<int> hydrant_City { get; set; }
+    
+        public virtual City City { get; set; }
+        public virtual District District { get; set; }
     }
 }

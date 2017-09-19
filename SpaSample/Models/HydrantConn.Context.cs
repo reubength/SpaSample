@@ -13,10 +13,10 @@ namespace SpaSample.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class EmplfebAccEntities : DbContext
+    public partial class HydrantConnectionEntities : DbContext
     {
-        public EmplfebAccEntities()
-            : base("name=EmplfebAccEntities")
+        public HydrantConnectionEntities()
+            : base("name=HydrantConnectionEntities")
         {
         }
     
@@ -25,6 +25,10 @@ namespace SpaSample.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Employee> Employees { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<District> Districts { get; set; }
+        public DbSet<HydrantInfo> HydrantInfoes { get; set; }
+        public DbSet<HydrantLocation> HydrantLocations { get; set; }
+        public DbSet<Test_Hydrant> Test_Hydrant { get; set; }
     }
 }

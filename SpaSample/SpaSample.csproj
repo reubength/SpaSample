@@ -162,51 +162,47 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\CityController.cs" />
+    <Compile Include="Controllers\DistrictController.cs" />
+    <Compile Include="Controllers\HydrantInfoController.cs" />
+    <Compile Include="Controllers\HydrantLocationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Employee.Context.cs">
+    <Compile Include="Models\City.cs">
+      <DependentUpon>HydrantConn.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\District.cs">
+      <DependentUpon>HydrantConn.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HydrantConn.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Employee.Context.tt</DependentUpon>
+      <DependentUpon>HydrantConn.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Employee.cs">
-      <DependentUpon>Employee.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Employee.Designer.cs">
+    <Compile Include="Models\HydrantConn.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Employee.edmx</DependentUpon>
+      <DependentUpon>HydrantConn.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Employee1.cs">
+    <Compile Include="Models\HydrantConn.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Employee.tt</DependentUpon>
+      <DependentUpon>HydrantConn.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HydrantInfo.cs">
+      <DependentUpon>HydrantConn.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HydrantLocation.cs">
+      <DependentUpon>HydrantConn.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Test_Hydrant.cs">
+      <DependentUpon>HydrantConn.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\admin\admin.html" />
-    <Content Include="app\admin\admin.js" />
-    <Content Include="app\app.js" />
-    <Content Include="app\common\bootstrap\bootstrap.dialog.js" />
-    <Content Include="app\common\common.js" />
-    <Content Include="app\common\logger.js" />
-    <Content Include="app\common\spinner.js" />
-    <Content Include="app\config.exceptionHandler.js" />
-    <Content Include="app\config.js" />
-    <Content Include="app\config.route.js" />
-    <Content Include="app\dashboard\dashboard.html" />
-    <Content Include="app\dashboard\dashboard.js" />
-    <Content Include="app\layout\shell.html" />
-    <Content Include="app\layout\shell.js" />
-    <Content Include="app\layout\sidebar.html" />
-    <Content Include="app\layout\sidebar.js" />
-    <Content Include="app\layout\topnav.html" />
-    <Content Include="app\layout\widgetheader.html" />
-    <Content Include="app\services\datacontext.js" />
-    <Content Include="app\services\directives.js" />
+    <Content Include="app\Views\Map.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -302,16 +298,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <Content Include="index.html" />
-    <Content Include="Models\Employee.Context.tt">
+    <Content Include="Models\HydrantConn.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Employee.edmx</DependentUpon>
-      <LastGenOutput>Employee.Context.cs</LastGenOutput>
+      <DependentUpon>HydrantConn.edmx</DependentUpon>
+      <LastGenOutput>HydrantConn.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Employee.tt">
+    <Content Include="Models\HydrantConn.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Employee.edmx</DependentUpon>
-      <LastGenOutput>Employee1.cs</LastGenOutput>
+      <DependentUpon>HydrantConn.edmx</DependentUpon>
+      <LastGenOutput>HydrantConn.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
@@ -325,12 +320,12 @@
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
-    <EntityDeploy Include="Models\Employee.edmx">
+    <EntityDeploy Include="Models\HydrantConn.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Employee.Designer.cs</LastGenOutput>
+      <LastGenOutput>HydrantConn.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Employee.edmx.diagram">
-      <DependentUpon>Employee.edmx</DependentUpon>
+    <Content Include="Models\HydrantConn.edmx.diagram">
+      <DependentUpon>HydrantConn.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\angular-mocks.js" />
@@ -342,6 +337,8 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.1.2.js" />
+    <Content Include="Scripts\jquery.signalR-2.1.2.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -350,6 +347,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\markerclusterer.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment-with-langs.js" />
     <Content Include="Scripts\moment-with-langs.min.js" />
@@ -361,7 +359,14 @@
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.10.0.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.10.0.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="app\app.js" />
+    <Content Include="app\Controller\GridController.js" />
+    <Content Include="app\Controller\MainController.js" />
+    <Content Include="app\Views\Grid.html" />
+    <Content Include="index.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -389,9 +394,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="SPA\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

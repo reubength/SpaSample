@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HydrantConnectionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="city_Id" />
+          </Key>
+          <Property Name="city_Id" Type="int" Nullable="false" />
+          <Property Name="city_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="city_State" Type="int" Nullable="false" />
+          <Property Name="city_District" Type="int" />
+        </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="district_Id" />
+          </Key>
+          <Property Name="district_Id" Type="int" Nullable="false" />
+          <Property Name="district_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HydrantInfo">
+          <Key>
+            <PropertyRef Name="hydrant_Id" />
+          </Key>
+          <Property Name="hydrant_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Test" Type="int" Nullable="false" />
+          <Property Name="Function" Type="int" Nullable="false" />
+          <Property Name="Video" Type="nvarchar" MaxLength="50" />
+          <Property Name="Photo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Replacement" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime2" Precision="7" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="HydrantLocation">
+          <Key>
+            <PropertyRef Name="hydrant_Id" />
+          </Key>
+          <Property Name="hydrant_Id" Type="int" Nullable="false" />
+          <Property Name="hydrant_District" Type="int" Nullable="false" />
+          <Property Name="hydrant_Longitude" Type="float" Nullable="false" />
+          <Property Name="hydrant_Latitude" Type="float" Nullable="false" />
+          <Property Name="hydrant_City" Type="int" />
+        </EntityType>
+        <EntityType Name="Test_Hydrant">
+          <Key>
+            <PropertyRef Name="test_Id" />
+          </Key>
+          <Property Name="test_Id" Type="int" Nullable="false" />
+          <Property Name="test_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_HydrantLocation_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="HydrantLocation" Type="Self.HydrantLocation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="city_Id" />
+            </Principal>
+            <Dependent Role="HydrantLocation">
+              <PropertyRef Name="hydrant_City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydrantLocation_District">
+          <End Role="District" Type="Self.District" Multiplicity="1" />
+          <End Role="HydrantLocation" Type="Self.HydrantLocation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="district_Id" />
+            </Principal>
+            <Dependent Role="HydrantLocation">
+              <PropertyRef Name="hydrant_District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HydrantConnectionModelStoreContainer">
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HydrantInfo" EntityType="Self.HydrantInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HydrantLocation" EntityType="Self.HydrantLocation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Test_Hydrant" EntityType="Self.Test_Hydrant" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_HydrantLocation_City" Association="Self.FK_HydrantLocation_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="HydrantLocation" EntitySet="HydrantLocation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydrantLocation_District" Association="Self.FK_HydrantLocation_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="HydrantLocation" EntitySet="HydrantLocation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HydrantConnectionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="city_Id" />
+          </Key>
+          <Property Name="city_Id" Type="Int32" Nullable="false" />
+          <Property Name="city_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="city_State" Type="Int32" Nullable="false" />
+          <Property Name="city_District" Type="Int32" />
+          <NavigationProperty Name="HydrantLocations" Relationship="Self.FK_HydrantLocation_City" FromRole="City" ToRole="HydrantLocation" />
+        </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="district_Id" />
+          </Key>
+          <Property Name="district_Id" Type="Int32" Nullable="false" />
+          <Property Name="district_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="HydrantLocations" Relationship="Self.FK_HydrantLocation_District" FromRole="District" ToRole="HydrantLocation" />
+        </EntityType>
+        <EntityType Name="HydrantInfo">
+          <Key>
+            <PropertyRef Name="hydrant_Id" />
+          </Key>
+          <Property Name="hydrant_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Test" Type="Int32" Nullable="false" />
+          <Property Name="Function" Type="Int32" Nullable="false" />
+          <Property Name="Video" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Photo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Replacement" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="7" />
+          <Property Name="Comments" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="HydrantLocation">
+          <Key>
+            <PropertyRef Name="hydrant_Id" />
+          </Key>
+          <Property Name="hydrant_Id" Type="Int32" Nullable="false" />
+          <Property Name="hydrant_District" Type="Int32" Nullable="false" />
+          <Property Name="hydrant_Longitude" Type="Double" Nullable="false" />
+          <Property Name="hydrant_Latitude" Type="Double" Nullable="false" />
+          <Property Name="hydrant_City" Type="Int32" />
+          <NavigationProperty Name="City" Relationship="Self.FK_HydrantLocation_City" FromRole="HydrantLocation" ToRole="City" />
+          <NavigationProperty Name="District" Relationship="Self.FK_HydrantLocation_District" FromRole="HydrantLocation" ToRole="District" />
+        </EntityType>
+        <EntityType Name="Test_Hydrant">
+          <Key>
+            <PropertyRef Name="test_Id" />
+          </Key>
+          <Property Name="test_Id" Type="Int32" Nullable="false" />
+          <Property Name="test_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_HydrantLocation_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="HydrantLocation" Type="Self.HydrantLocation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="city_Id" />
+            </Principal>
+            <Dependent Role="HydrantLocation">
+              <PropertyRef Name="hydrant_City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydrantLocation_District">
+          <End Role="District" Type="Self.District" Multiplicity="1" />
+          <End Role="HydrantLocation" Type="Self.HydrantLocation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="district_Id" />
+            </Principal>
+            <Dependent Role="HydrantLocation">
+              <PropertyRef Name="hydrant_District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HydrantConnectionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="Districts" EntityType="Self.District" />
+          <EntitySet Name="HydrantInfoes" EntityType="Self.HydrantInfo" />
+          <EntitySet Name="HydrantLocations" EntityType="Self.HydrantLocation" />
+          <EntitySet Name="Test_Hydrant" EntityType="Self.Test_Hydrant" />
+          <AssociationSet Name="FK_HydrantLocation_City" Association="Self.FK_HydrantLocation_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="HydrantLocation" EntitySet="HydrantLocations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydrantLocation_District" Association="Self.FK_HydrantLocation_District">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="HydrantLocation" EntitySet="HydrantLocations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HydrantConnectionModelStoreContainer" CdmEntityContainer="HydrantConnectionEntities">
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="HydrantConnectionModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="city_Id" ColumnName="city_Id" />
+                <ScalarProperty Name="city_Name" ColumnName="city_Name" />
+                <ScalarProperty Name="city_State" ColumnName="city_State" />
+                <ScalarProperty Name="city_District" ColumnName="city_District" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Districts">
+            <EntityTypeMapping TypeName="HydrantConnectionModel.District">
+              <MappingFragment StoreEntitySet="District">
+                <ScalarProperty Name="district_Id" ColumnName="district_Id" />
+                <ScalarProperty Name="district_Name" ColumnName="district_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HydrantInfoes">
+            <EntityTypeMapping TypeName="HydrantConnectionModel.HydrantInfo">
+              <MappingFragment StoreEntitySet="HydrantInfo">
+                <ScalarProperty Name="hydrant_Id" ColumnName="hydrant_Id" />
+                <ScalarProperty Name="Test" ColumnName="Test" />
+                <ScalarProperty Name="Function" ColumnName="Function" />
+                <ScalarProperty Name="Video" ColumnName="Video" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="Replacement" ColumnName="Replacement" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HydrantLocations">
+            <EntityTypeMapping TypeName="HydrantConnectionModel.HydrantLocation">
+              <MappingFragment StoreEntitySet="HydrantLocation">
+                <ScalarProperty Name="hydrant_Id" ColumnName="hydrant_Id" />
+                <ScalarProperty Name="hydrant_District" ColumnName="hydrant_District" />
+                <ScalarProperty Name="hydrant_Longitude" ColumnName="hydrant_Longitude" />
+                <ScalarProperty Name="hydrant_Latitude" ColumnName="hydrant_Latitude" />
+                <ScalarProperty Name="hydrant_City" ColumnName="hydrant_City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Test_Hydrant">
+            <EntityTypeMapping TypeName="HydrantConnectionModel.Test_Hydrant">
+              <MappingFragment StoreEntitySet="Test_Hydrant">
+                <ScalarProperty Name="test_Id" ColumnName="test_Id" />
+                <ScalarProperty Name="test_Name" ColumnName="test_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
